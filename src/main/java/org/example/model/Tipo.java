@@ -1,2 +1,5 @@
-package org.example.model;public enum Tipo {
+package org.example.model;
+
+public enum Tipo {
+    NEW, UPDATED, DELETED
 }

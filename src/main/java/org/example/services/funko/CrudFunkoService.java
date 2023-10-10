@@ -6,20 +6,20 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-public interface FunkoService {
+public interface CrudFunkoService {
     Flux<Funko> findAll();
 
-    Flux<Alumno> findAllByNombre(String nombre);
+    Flux<Funko> findAllByNombre(String nombre);
 
-    Mono<Alumno> findById(long id);
+    Mono<Funko> findById(long id);
 
-    Mono<Alumno> findByUuid(UUID uuid);
+    Mono<Funko> findByUuid(UUID uuid);
 
-    Mono<Alumno> save(Alumno alumno);
+    Mono<Funko> save(Funko alumno);
 
-    Mono<Alumno> update(Alumno alumno);
+    Mono<Funko> update(Funko alumno);
 
-    Mono<Alumno> deleteById(long id);
+    Mono<Funko> deleteById(long id);
 
     Mono<Void> deleteAll();
 }
