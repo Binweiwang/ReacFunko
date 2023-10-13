@@ -1,0 +1,29 @@
+
+h
+java:S1192."KDefine a constant instead of duplicating this literal "created_at" 4 times.(äõœÌ8Ï–¬²1
+i
+java:S1192+"GDefine a constant instead of duplicating this literal "nombre" 4 times.(ªçÊºÿÿÿÿÿ8Ï–¬²1
+h
+java:S1192/"KDefine a constant instead of duplicating this literal "updated_at" 4 times.(õë¼8Ï–¬²1
+T
+java:S26298"7Use the built-in formatting to construct this argument.(øë”8Ï–¬²1
+T
+java:S2629N"7Use the built-in formatting to construct this argument.(÷èºÀ8Ï–¬²1
+S
+java:S2629b"7Use the built-in formatting to construct this argument.(üÈ±I8Ï–¬²1
+Y
+java:S2629r"7Use the built-in formatting to construct this argument.(”´ìæøÿÿÿÿ8Ï–¬²1
+U
+java:S2629Œ"7Use the built-in formatting to construct this argument.(ĞÀÃš8Ï–¬²1
+^
+java:S34578"AFormat specifiers should be used instead of string concatenation.(øë”8ŸÏ–¬²1
+^
+java:S3457N"AFormat specifiers should be used instead of string concatenation.(÷èºÀ8¢Ï–¬²1
+]
+java:S3457b"AFormat specifiers should be used instead of string concatenation.(üÈ±I8¤Ï–¬²1
+c
+java:S3457r"AFormat specifiers should be used instead of string concatenation.(”´ìæøÿÿÿÿ8¦Ï–¬²1
+`
+java:S1612x"CReplace this lambda with method reference 'Result::getRowsUpdated'.(û†ß–8§Ï–¬²1
+_
+java:S3457Œ"AFormat specifiers should be used instead of string concatenation.(ĞÀÃš8©Ï–¬²1

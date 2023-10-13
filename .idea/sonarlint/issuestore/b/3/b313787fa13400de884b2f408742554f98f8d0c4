@@ -1,0 +1,32 @@
+
+T
+java:S2629;"7Use the built-in formatting to construct this argument.(éÃèŠ8‚ÑÅ­²1
+Y
+java:S2629A"7Use the built-in formatting to construct this argument.(ŠÍÆâşÿÿÿÿ8‚ÑÅ­²1
+T
+java:S2629J"7Use the built-in formatting to construct this argument.(÷èºÀ8‚ÑÅ­²1
+S
+java:S2629T"7Use the built-in formatting to construct this argument.(üÈ±I8‚ÑÅ­²1
+T
+java:S2629Z"7Use the built-in formatting to construct this argument.(ğ¾¾Ÿ8‚ÑÅ­²1
+U
+java:S2629‘"7Use the built-in formatting to construct this argument.(İÁñ8‚ÑÅ­²1
+t	java:S116%"SRename this field "MAX_SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä¤©Èúÿÿÿÿ8“ÑÅ­²1
+C
+java:S1170%"!Make this final field static too.(ä¤©Èúÿÿÿÿ8“ÑÅ­²1
+T
+java:S3416!"2Update this logger to use "FunkoServiceImp.class".(¨×¡ÿÿÿÿÿ8”ÑÅ­²1
+^
+java:S3457;"AFormat specifiers should be used instead of string concatenation.(éÃèŠ8–ÑÅ­²1
+c
+java:S3457A"AFormat specifiers should be used instead of string concatenation.(ŠÍÆâşÿÿÿÿ8—ÑÅ­²1
+^
+java:S3457J"AFormat specifiers should be used instead of string concatenation.(÷èºÀ8˜ÑÅ­²1
+]
+java:S3457T"AFormat specifiers should be used instead of string concatenation.(üÈ±I8™ÑÅ­²1
+^
+java:S3457Z"AFormat specifiers should be used instead of string concatenation.(ğ¾¾Ÿ8™ÑÅ­²1
+n
+java:S2677j"LUse or store the value returned from "readLine" instead of throwing it away.(£­—âÿÿÿÿÿ8›ÑÅ­²1
+_
+java:S3457‘"AFormat specifiers should be used instead of string concatenation.(İÁñ8ŸÑÅ­²1
