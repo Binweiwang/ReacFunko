@@ -1,0 +1,34 @@
+
+q
+java:S1192F"ODefine a constant instead of duplicating this literal " no encontrado" 4 times.(Ğıúßûÿÿÿÿ8ñ„êÛ²1
+T
+java:S2629;"7Use the built-in formatting to construct this argument.(éÃèŠ8ò„êÛ²1
+Y
+java:S2629A"7Use the built-in formatting to construct this argument.(ŠÍÆâşÿÿÿÿ8ò„êÛ²1
+T
+java:S2629K"7Use the built-in formatting to construct this argument.(÷èºÀ8ò„êÛ²1
+S
+java:S2629T"7Use the built-in formatting to construct this argument.(üÈ±I8ò„êÛ²1
+T
+java:S2629^"7Use the built-in formatting to construct this argument.(ğ¾¾Ÿ8ò„êÛ²1
+U
+java:S2629›"7Use the built-in formatting to construct this argument.(İÁñ8ò„êÛ²1
+t	java:S116#"SRename this field "MAX_SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒØÒ‹şÿÿÿÿ8‡…êÛ²1
+C
+java:S1170#"!Make this final field static too.(ÒØÒ‹şÿÿÿÿ8ˆ…êÛ²1
+T
+java:S3416"2Update this logger to use "FunkoServiceImp.class".(¨×¡ÿÿÿÿÿ8ˆ…êÛ²1
+^
+java:S3457;"AFormat specifiers should be used instead of string concatenation.(éÃèŠ8‹…êÛ²1
+c
+java:S3457A"AFormat specifiers should be used instead of string concatenation.(ŠÍÆâşÿÿÿÿ8‹…êÛ²1
+^
+java:S3457K"AFormat specifiers should be used instead of string concatenation.(÷èºÀ8Œ…êÛ²1
+]
+java:S3457T"AFormat specifiers should be used instead of string concatenation.(üÈ±I8…êÛ²1
+^
+java:S3457^"AFormat specifiers should be used instead of string concatenation.(ğ¾¾Ÿ8…êÛ²1
+n
+java:S2677s"LUse or store the value returned from "readLine" instead of throwing it away.(£­—âÿÿÿÿÿ8…êÛ²1
+_
+java:S3457›"AFormat specifiers should be used instead of string concatenation.(İÁñ8•…êÛ²1

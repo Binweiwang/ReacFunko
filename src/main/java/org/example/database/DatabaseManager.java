@@ -47,7 +47,7 @@ public class DatabaseManager {
         }
     }
 
-    private synchronized void initTables() {
+    public synchronized void initTables() {
         logger.debug("Borrando tablas si existe");
         excuteScript("remove.sql").block();
         logger.debug("Creando tablas");

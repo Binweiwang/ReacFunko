@@ -1,0 +1,25 @@
+
+h
+java:S11928"KDefine a constant instead of duplicating this literal "created_at" 3 times.(äõœÌ8ù¦ˆİ²1
+i
+java:S11923"GDefine a constant instead of duplicating this literal "nombre" 3 times.(ªçÊºÿÿÿÿÿ8ú¦ˆİ²1
+h
+java:S11929"KDefine a constant instead of duplicating this literal "updated_at" 3 times.(õë¼8ú¦ˆİ²1
+T
+java:S2629?"7Use the built-in formatting to construct this argument.(øë”8íê ×²1
+S
+java:S2629c"7Use the built-in formatting to construct this argument.(üÈ±I8íê ×²1
+Y
+java:S2629v"7Use the built-in formatting to construct this argument.(”´ìæøÿÿÿÿ8íê ×²1
+U
+java:S2629"7Use the built-in formatting to construct this argument.(ĞÀÃš8íê ×²1
+^
+java:S3457?"AFormat specifiers should be used instead of string concatenation.(øë”8úê ×²1
+]
+java:S3457c"AFormat specifiers should be used instead of string concatenation.(üÈ±I8ıê ×²1
+c
+java:S3457v"AFormat specifiers should be used instead of string concatenation.(”´ìæøÿÿÿÿ8ÿê ×²1
+`
+java:S1612|"CReplace this lambda with method reference 'Result::getRowsUpdated'.(û†ß–8€ë ×²1
+_
+java:S3457"AFormat specifiers should be used instead of string concatenation.(ĞÀÃš8ë ×²1

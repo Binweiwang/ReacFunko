@@ -1,15 +1,16 @@
 package org.example.repositories.funko;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.r2dbc.spi.Row;
 import org.example.database.DatabaseManager;
 import org.example.model.Funko;
-import org.example.util.IdGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import io.r2dbc.spi.Connection;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,23 +32,30 @@ public class FunkoReposotoryImp implements FunkoReposotory {
 
     @Override
     public Flux<Funko> findAll() {
-        logger.debug("Buscando todo los alumnos");
+        logger.debug("Buscando todo los Funkos");
         String sql = "SELECT * FROM FUNKOS";
         return Flux.usingWhen(
                 connectionFactory.create(),
                 connection -> Flux.from(connection.createStatement(sql).execute())
                         .flatMap(result -> result.map((row, rowMetadata) ->
-                                Funko.builder()
-                                        .id(row.get("id", Long.class))
-                                        .nombre(row.get("nombre", String.class))
-                                        .cod(row.get("uuid", UUID.class))
-                                        .myId(row.get("myId", Long.class))
-                                        .created_at(row.get("created_at", LocalDateTime.class))
-                                        .updated_at(row.get("updated_at", LocalDateTime.class))
-                                        .build()
+                                getBuild(row)
                         )),
                 Connection::close
         );
+    }
+
+    private static Funko getBuild(Row row) {
+        return Funko.builder()
+                .id(row.get("id", Integer.class))
+                .cod(row.get("cod", UUID.class))
+                .nombre(row.get("nombre", String.class))
+                .myId(row.get("myId", Long.class))
+                .modelo(row.get("modelo", String.class))
+                .precio(row.get("precio", Double.class))
+                .fechaLanzamiento(row.get("fecha_lanzamiento", LocalDate.class))
+                .created_at(row.get("created_at", LocalDateTime.class))
+                .updated_at(row.get("updated_at", LocalDateTime.class))
+                .build();
     }
 
     @Override
@@ -60,27 +68,20 @@ public class FunkoReposotoryImp implements FunkoReposotory {
                         .bind(0, id)
                         .execute()
                 ).flatMap(result -> Mono.from(result.map((row, rowMetadata) ->
-                        Funko.builder()
-                                .id(row.get("id", Long.class))
-                                .nombre(row.get("nombre", String.class))
-                                .cod(row.get("uuid", UUID.class))
-                                .myId(row.get("myId", Long.class))
-                                .created_at(row.get("created_at", LocalDateTime.class))
-                                .updated_at(row.get("updated_at", LocalDateTime.class))
-                                .build()))),
+                        getBuild(row)
+                ))),
                 Connection::close
         );
     }
 
     @Override
     public Mono<Funko> save(Funko funko) {
-        logger.debug("Guardando funko: " + funko);
         String sql = "INSERT INTO FUNKOS (cod, myId, nombre, modelo, precio, fecha_lanzamiento, created_at, updated_at) VALUES(?,?,?,?,?,?,?,?)";
         return Mono.usingWhen(
                 connectionFactory.create(),
                 connection -> Mono.from(connection.createStatement(sql)
                         .bind(0, funko.getCod())
-                        .bind(1, IdGenerator.getInstance().getMyId())
+                        .bind(1, funko.getMyId())
                         .bind(2, funko.getNombre())
                         .bind(3, funko.getModelo())
                         .bind(4, funko.getPrecio())
@@ -100,11 +101,14 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         funko.setUpdated_at(LocalDateTime.now());
         return Mono.usingWhen(
                 connectionFactory.create(),
-                connection -> (Mono.from(connection.createStatement(sql)
+                connection -> Mono.from(connection.createStatement(sql)
                         .bind(0, funko.getNombre())
                         .bind(1, funko.getModelo())
                         .bind(2, funko.getPrecio())
-                        .bind(3, funko.getUpdated_at()).execute())).then(Mono.just(funko)),
+                        .bind(3, funko.getUpdated_at())
+                        .bind(4, funko.getId())
+                        .execute()
+                ).then(Mono.just(funko)),
                 Connection::close
         );
     }
@@ -116,8 +120,8 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         return Mono.usingWhen(
                 connectionFactory.create(),
                 connection -> Mono.from(connection.createStatement(sql)
-                        .bind(0, id)
-                        .execute()).flatMapMany(result -> result.getRowsUpdated())
+                                .bind(0, id)
+                                .execute()).flatMapMany(result -> result.getRowsUpdated())
                         .hasElements(),
                 Connection::close
         );
@@ -136,23 +140,38 @@ public class FunkoReposotoryImp implements FunkoReposotory {
     }
 
     @Override
-    public Mono<Funko> findByNombre(String nombre) {
+    public Flux<Funko> findByNombre(String nombre) {
         logger.debug("Busca por nombre: " + nombre);
-        String sql = "SELECT * FROM FUNKOS WHERE nombre = ?";
+        String sql = "SELECT * FROM FUNKOS WHERE nombre LIKE ?";
+        return Flux.usingWhen(
+                connectionFactory.create(),
+                connection -> (Flux.from(connection.createStatement(sql)
+                        .bind(0, nombre)
+                        .execute()))
+                        .flatMap(result -> Flux.from(result.map((row, rowMetadata) ->
+                                getBuild(row))
+                        )),
+                Connection::close
+        );
+    }
+
+    @Override
+    public Mono<Funko> findByUuid(UUID uuid) {
+        String sql = "SELECT * FROM FUNKOS WHERE cod = ?";
         return Mono.usingWhen(
                 connectionFactory.create(),
-                connection -> (Mono.from(connection.createStatement(sql)
-                        .bind(0,nombre)
-                        .execute()))
+                connection -> Mono.from(connection.createStatement(sql)
+                                .bind(0, uuid)
+                                .execute())
                         .flatMap(result -> Mono.from(result.map((row, rowMetadata) ->
-                        Funko.builder()
-                                .id(row.get("id", Long.class))
-                                .nombre(row.get("nombre", String.class))
-                                .cod(row.get("uuid", UUID.class))
-                                .myId(row.get("myId", Long.class))
-                                .created_at(row.get("created_at", LocalDateTime.class))
-                                .updated_at(row.get("updated_at", LocalDateTime.class))
-                                .build()))),
+                                Funko.builder()
+                                        .id(row.get("id", Integer.class))
+                                        .nombre(row.get("nombre", String.class))
+                                        .cod(row.get("cod", UUID.class))
+                                        .myId(row.get("myId", Long.class))
+                                        .created_at(row.get("created_at", LocalDateTime.class))
+                                        .updated_at(row.get("updated_at", LocalDateTime.class))
+                                        .build()))),
                 Connection::close
         );
     }
