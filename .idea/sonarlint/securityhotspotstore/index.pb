@@ -49,3 +49,7 @@ t
 Dsrc/main/java/org/example/exceptions/FunkoNoEncontradoException.java,8\a\8a3c174cb70952037ad9f5de80ad9561ebc4338d
 h
 8src/main/java/org/example/exceptions/FunkoException.java,5\a\5a1bd0750d55635b66dbcd1072b80d660d8efb8b
+a
+1src/test/java/services/FunkosServiceImplTest.java,6\9\690c62ebf53ec6348909e000a8386ae2d2596dd7
+g
+7src/test/java/repositorio/FunkosRepositoryImplTest.java,8\4\84c66073fb1f0bc89198332e4f349e5cea82dfc6

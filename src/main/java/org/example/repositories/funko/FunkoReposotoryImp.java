@@ -1,6 +1,7 @@
 package org.example.repositories.funko;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.r2dbc.spi.Row;
 import org.example.database.DatabaseManager;
 import org.example.model.Funko;
 import org.slf4j.Logger;
@@ -37,18 +38,24 @@ public class FunkoReposotoryImp implements FunkoReposotory {
                 connectionFactory.create(),
                 connection -> Flux.from(connection.createStatement(sql).execute())
                         .flatMap(result -> result.map((row, rowMetadata) ->
-                                Funko.builder()
-                                        .id(row.get("id", Integer.class))
-                                        .cod(row.get("cod", UUID.class))
-                                        .nombre(row.get("nombre", String.class))
-                                        .myId(row.get("myId", Long.class))
-                                        .fechaLanzamiento(row.get("fecha_lanzamiento", LocalDate.class))
-                                        .created_at(row.get("created_at", LocalDateTime.class))
-                                        .updated_at(row.get("updated_at", LocalDateTime.class))
-                                        .build()
+                                getBuild(row)
                         )),
                 Connection::close
         );
+    }
+
+    private static Funko getBuild(Row row) {
+        return Funko.builder()
+                .id(row.get("id", Integer.class))
+                .cod(row.get("cod", UUID.class))
+                .nombre(row.get("nombre", String.class))
+                .myId(row.get("myId", Long.class))
+                .modelo(row.get("modelo", String.class))
+                .precio(row.get("precio", Double.class))
+                .fechaLanzamiento(row.get("fecha_lanzamiento", LocalDate.class))
+                .created_at(row.get("created_at", LocalDateTime.class))
+                .updated_at(row.get("updated_at", LocalDateTime.class))
+                .build();
     }
 
     @Override
@@ -61,14 +68,8 @@ public class FunkoReposotoryImp implements FunkoReposotory {
                         .bind(0, id)
                         .execute()
                 ).flatMap(result -> Mono.from(result.map((row, rowMetadata) ->
-                        Funko.builder()
-                                .id(row.get("id", Integer.class))
-                                .nombre(row.get("nombre", String.class))
-                                .cod(row.get("cod", UUID.class))
-                                .myId(row.get("myId", Long.class))
-                                .created_at(row.get("created_at", LocalDateTime.class))
-                                .updated_at(row.get("updated_at", LocalDateTime.class))
-                                .build()))),
+                        getBuild(row)
+                ))),
                 Connection::close
         );
     }

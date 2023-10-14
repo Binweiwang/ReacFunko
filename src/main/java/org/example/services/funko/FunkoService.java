@@ -1,5 +1,6 @@
 package org.example.services.funko;
 
+import io.r2dbc.spi.Parameter;
 import org.example.model.Funko;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,7 +19,8 @@ public interface FunkoService extends  CrudFunkoService{
     Mono<Funko> funkoMasCaro();
     Mono<Double> mediaFunkos();
     Mono<Map<String,Funko>> funkoPorModelo();
-    Mono<List<Funko>> funkosLanzadosen2023();
+    Mono<Map<String, Integer>> numeroFunkosPorModelo();
+    Mono<List<Funko>> funkosLanzadosEn2023();
     Mono<Integer> numeroFunkosStitch();
     Mono<List<Funko>> funkosStitch();
 

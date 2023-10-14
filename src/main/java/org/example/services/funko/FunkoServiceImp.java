@@ -132,7 +132,8 @@ public class FunkoServiceImp implements FunkoService {
         }
 
         return Flux.fromIterable(funkosToSave)
-                .flatMap(funkorepositorio::save);
+                .flatMap(funkorepositorio::save)
+                .doOnNext(funko -> notificacionFunko.notify(new Notificacion<>(Tipo.NEW, funko)));
     }
 
 
@@ -161,44 +162,76 @@ public class FunkoServiceImp implements FunkoService {
     @Override
     public Mono<Funko> funkoMasCaro() {
         logger.debug("Mostrando funko mas caro");
-        return funkorepositorio.findAll()
-                .collectList()
-                .flatMap(funkos -> {
-                    if (funkos.isEmpty()) {
-                        // Manejar el caso en el que la lista de Funkos está vacía.
-                        return Mono.error(new FunkoNoEncontradoException("No se encontraron Funkos."));
-                    } else {
-                        // Encontrar el Funko más caro en la lista.
-                        return Mono.just(funkos.stream()
-                                .max(Comparator.comparing(Funko::getPrecio)).get());
-                    }
-                });
+        return funkorepositorio.findAll().collectList().flatMap(funkos -> {
+            Optional<Funko> funko = funkos.stream().max(Comparator.comparing(Funko::getPrecio));
+            return Mono.just(funko.get());
+        });
     }
-
-
 
     @Override
     public Mono<Double> mediaFunkos() {
-        return null;
+        logger.debug("Mostrando media de los funkos");
+        return funkorepositorio.findAll().collectList().flatMap(funkos -> {
+            Double media = funkos.stream().mapToDouble(Funko::getPrecio).average().getAsDouble();
+            return Mono.just(media);
+        });
+
     }
 
     @Override
     public Mono<Map<String, Funko>> funkoPorModelo() {
-        return null;
+        logger.debug("Mostrando funkos por modelo");
+        return funkorepositorio.findAll().collectList().flatMap(funkos -> {
+            Map<String, Funko> funkosPorModelo = funkos.stream()
+                    .map(funko -> Map.entry(funko.getModelo(), funko))
+                    .collect(HashMap::new, (map, entry) -> map.put(entry.getKey(), entry.getValue()), HashMap::putAll);
+            return Mono.just(funkosPorModelo);
+        });
+
     }
 
     @Override
-    public Mono<List<Funko>> funkosLanzadosen2023() {
-        return null;
+    public Mono<Map<String, Integer>> numeroFunkosPorModelo() {
+        logger.debug("Mostrando numero de funkos por modelo");
+        return funkorepositorio.findAll().collectList()
+                .flatMap(funkos -> {
+                    Map<String, Integer> numeroFunkosPorModelo = funkos.stream()
+                            .map(Funko::getModelo)
+                            .collect(HashMap::new, (map, modelo) -> map.merge(modelo, 1, Integer::sum), HashMap::putAll);
+                    return Mono.just(numeroFunkosPorModelo);
+                });
+    }
+
+    @Override
+    public Mono<List<Funko>> funkosLanzadosEn2023() {
+        logger.debug("Mostrando funkos lanzados en 2023");
+        return funkorepositorio.findAll().collectList().flatMap(funkos -> {
+            List<Funko> funkosLanzadosen2023 = funkos.stream()
+                    .filter(funko -> funko.getFechaLanzamiento().getYear() == 2023)
+                    .toList();
+            return Mono.just(funkosLanzadosen2023);
+        });
     }
 
     @Override
     public Mono<Integer> numeroFunkosStitch() {
-        return null;
+        logger.debug("Mostrando numero de funkos de stitch");
+        return funkorepositorio.findAll().collectList().flatMap(funkos -> {
+            Integer numeroFunkosStitch = (int) funkos.stream()
+                    .filter(funko -> funko.getNombre().contains("Stitch"))
+                    .count();
+            return Mono.just(numeroFunkosStitch);
+        });
     }
 
     @Override
     public Mono<List<Funko>> funkosStitch() {
-        return null;
+logger.debug("Mostrando funkos de stitch");
+        return funkorepositorio.findAll().collectList().flatMap(funkos -> {
+            List<Funko> funkosStitch = funkos.stream()
+                    .filter(funko -> funko.getNombre().contains("Stitch"))
+                    .toList();
+            return Mono.just(funkosStitch);
+        });
     }
 }
