@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class FunkosRepositoryImplTest {
 
     private FunkoReposotory funkoReposotory;
@@ -24,8 +26,6 @@ class FunkosRepositoryImplTest {
         DatabaseManager.getInstance().initTables();
 
     }
-
-
     @Test
     void saveFunko() {
         var funko = getFunko();
@@ -39,6 +39,87 @@ class FunkosRepositoryImplTest {
                 () -> assertNotNull(savedFunko.getCreated_at())
         );
     }
+    @Test
+    void findFunkoById() {
+        var funko = getFunko();
+        Funko savedFunko = funkoReposotory.save(funko).block();
+        Optional<Funko> foundFunko = funkoReposotory.findById(savedFunko.getId()).blockOptional();
+        assertAll(
+                () -> assertEquals(funko.getNombre(), foundFunko.get().getNombre()),
+                () -> assertEquals(funko.getPrecio(), foundFunko.get().getPrecio()),
+                () -> assertNotNull(foundFunko.get().getCod()),
+                () -> assertNotNull(foundFunko.get().getUpdated_at()),
+                () -> assertNotNull(foundFunko.get().getCreated_at())
+        );
+    }
+    @Test
+    void findFunkoByIdNoExiste() {
+        Optional<Funko> foundFunko = funkoReposotory.findById(99L).blockOptional();
+        assertAll(() -> assertFalse(foundFunko.isPresent())
+        );
+    }
+    @Test
+    void findAllAlumnos() {
+        var funko1 = getFunko();
+        var funko2 = getFunko();
+        var funko3 = getFunko();
+        funkoReposotory.save(funko1).block();
+        funkoReposotory.save(funko2).block();
+        funkoReposotory.save(funko3).block();
+
+        List<Funko> foundFunkos = funkoReposotory.findAll().collectList().block();
+        assertEquals(3, foundFunkos.size());
+    }
+    @Test
+    void findFunkoByNombre() {
+        var funko1 = getFunko();
+        var funko2 = getFunko();
+        funkoReposotory.save(funko1).block();
+        funkoReposotory.save(funko2).block();
+        List<Funko> funkofound = funkoReposotory.findByNombre("Test").collectList().block();
+        System.out.println(funkofound);
+        assertAll(() -> assertNotNull(funkofound),
+                () -> assertEquals(2, funkofound.size()),
+                () -> assertEquals(funkofound.get(0).getNombre(), funko1.getNombre()),
+                () -> assertEquals(funkofound.get(0).getPrecio(), funko1.getPrecio()),
+                () -> assertEquals(funkofound.get(1).getNombre(), funko2.getNombre()),
+                () -> assertEquals(funkofound.get(1).getPrecio(), funko2.getPrecio())
+        );
+    }
+    @Test
+    void updateFunko() {
+        var funko = getFunko();
+        Funko savedAlumno = funkoReposotory.save(funko).block();
+        savedAlumno.setNombre("Updated");
+        savedAlumno.setPrecio(8.5);
+        funkoReposotory.update(savedAlumno).block();
+        Optional<Funko> foundFunko = funkoReposotory.findById(savedAlumno.getId()).blockOptional();
+        assertAll(() -> assertTrue(foundFunko.isPresent()),
+                () -> assertEquals(savedAlumno.getNombre(), foundFunko.get().getNombre()),
+                () -> assertEquals(savedAlumno.getPrecio(), foundFunko.get().getPrecio())
+        );
+    }
+    @Test
+    void deleteFunko() {
+        var funko = getFunko();
+
+        Funko savedFunko = funkoReposotory.save(funko).block();
+        funkoReposotory.deleteById(savedFunko.getId()).block();
+        Optional<Funko> foundFunko = funkoReposotory.findById(savedFunko.getId()).blockOptional();
+        assertAll(() -> assertFalse(foundFunko.isPresent())
+        );
+    }
+    @Test
+    void deleteAllAlumnos() {
+        var funko1 = getFunko();
+        var funko2 = getFunko();
+        funkoReposotory.save(funko1).block();
+        funkoReposotory.save(funko2).block();
+        funkoReposotory.deleteAll().block();
+        List<Funko> foundFunko = funkoReposotory.findAll().collectList().block();
+        assertEquals(0, foundFunko.size());
+    }
+
 
     private static Funko getFunko() {
         var funko = Funko.builder()
@@ -54,117 +135,4 @@ class FunkosRepositoryImplTest {
                 .build();
         return funko;
     }
-
-    @Test
-    void findFunkoById() {
-        var funko = getFunko();
-        Funko savedFunko = funkoReposotory.save(funko).block();
-        Optional<Funko> foundFunko = funkoReposotory.findById(savedFunko.getId()).blockOptional();
-        assertAll(
-                () -> assertEquals(funko.getNombre(), foundFunko.get().getNombre()),
-                () -> assertEquals(funko.getPrecio(), foundFunko.get().getPrecio()),
-                () -> assertNotNull(foundFunko.get().getCod()),
-                () -> assertNotNull(foundFunko.get().getUpdated_at()),
-                () -> assertNotNull(foundFunko.get().getCreated_at())
-        );
-    }
-//
-//    @Test
-//    void findAlumnoByIdNoExiste() {
-//        Optional<Alumno> foundAlumno = funkoReposotory.findById(1L).blockOptional();
-//        assertAll(() -> assertFalse(foundAlumno.isPresent())
-//        );
-//    }
-//
-//    @Test
-//    void findAllAlumnos() {
-//        Alumno alumno1 = Alumno.builder()
-//                .nombre("Test-1")
-//                .calificacion(9.5)
-//                .build();
-//        Alumno alumno2 = Alumno.builder()
-//                .nombre("Test-2")
-//                .calificacion(8.5)
-//                .build();
-//        funkoReposotory.save(alumno1).block();
-//        funkoReposotory.save(alumno2).block();
-//        List<Alumno> foundAlumnos = funkoReposotory.findAll().collectList().block();
-//        assertEquals(2, foundAlumnos.size());
-//    }
-//
-//    @Test
-//    void findAlumnosByNombre() {
-//        Alumno alumno1 = Alumno.builder()
-//                .nombre("Test-1")
-//                .calificacion(9.5)
-//                .build();
-//        Alumno alumno2 = Alumno.builder()
-//                .nombre("Test-2")
-//                .calificacion(8.5)
-//                .build();
-//        funkoReposotory.save(alumno1).block();
-//        funkoReposotory.save(alumno2).block();
-//        List<Alumno> foundAlumnos = funkoReposotory.findByNombre("Test").collectList().block();
-//        System.out.println(foundAlumnos);
-//        assertAll(() -> assertNotNull(foundAlumnos),
-//                () -> assertEquals(2, foundAlumnos.size()),
-//                () -> assertEquals(foundAlumnos.get(0).getNombre(), alumno1.getNombre()),
-//                () -> assertEquals(foundAlumnos.get(0).getCalificacion(), alumno1.getCalificacion()),
-//                () -> assertEquals(foundAlumnos.get(1).getNombre(), alumno2.getNombre()),
-//                () -> assertEquals(foundAlumnos.get(1).getCalificacion(), alumno2.getCalificacion())
-//        );
-//    }
-//
-//    @Test
-//    void updateAlumno() {
-//        Alumno alumno = Alumno.builder()
-//                .id(1L)
-//                .nombre("Test")
-//                .calificacion(9.5)
-//                .build();
-//        Alumno savedAlumno = funkoReposotory.save(alumno).block();
-//        savedAlumno.setNombre("Updated");
-//        savedAlumno.setCalificacion(8.5);
-//        funkoReposotory.update(savedAlumno).block();
-//        Optional<Alumno> foundAlumno = funkoReposotory.findById(savedAlumno.getId()).blockOptional();
-//        assertAll(() -> assertTrue(foundAlumno.isPresent()),
-//                () -> assertEquals(savedAlumno.getNombre(), foundAlumno.get().getNombre()),
-//                () -> assertEquals(savedAlumno.getCalificacion(), foundAlumno.get().getCalificacion())
-//        );
-//    }
-//
-//    @Test
-//    void deleteAlumno() {
-//        Alumno alumno = Alumno.builder()
-//                .id(1L)
-//                .nombre("Test")
-//                .calificacion(9.5)
-//                .build();
-//        Alumno savedAlumno = funkoReposotory.save(alumno).block();
-//        funkoReposotory.deleteById(savedAlumno.getId()).block();
-//        Optional<Alumno> foundAlumno = funkoReposotory.findById(savedAlumno.getId()).blockOptional();
-//        assertAll(() -> assertFalse(foundAlumno.isPresent())
-//        );
-//    }
-//
-//
-//    @Test
-//    void deleteAllAlumnos() {
-//        Alumno alumno1 = Alumno.builder()
-//                .nombre("Test-1")
-//                .calificacion(9.5)
-//                .build();
-//        Alumno alumno2 = Alumno.builder()
-//                .nombre("Test-2")
-//                .calificacion(8.5)
-//                .build();
-//        funkoReposotory.save(alumno1).block();
-//        funkoReposotory.save(alumno2).block();
-//        funkoReposotory.deleteAll().block();
-//        List<Alumno> foundAlumnos = funkoReposotory.findAll().collectList().block();
-//        assertEquals(0, foundAlumnos.size());
-//    }
-//
-    // OJO, los id no existen ya no los comparamos aquí porque han salido al servicio
-
 }

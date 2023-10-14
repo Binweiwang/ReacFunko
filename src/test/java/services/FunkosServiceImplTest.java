@@ -1,60 +1,63 @@
-//package services;
-//
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import reactor.core.publisher.Flux;
-//import reactor.core.publisher.Mono;
-//
-//import java.sql.SQLException;
-//import java.util.List;
-//import java.util.concurrent.ExecutionException;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.*;
-//
-//@ExtendWith(MockitoExtension.class)
-//class FunkosServiceImplTest {
-//
-//    @Mock
-//    AlumnosRepository repository;
-//
-//    @Mock
-//    AlumnosNotification notification;
-//
-//    @InjectMocks
-//    AlumnosServiceImpl service;
-//
-//    @Test
-//    void findAll() throws SQLException, ExecutionException, InterruptedException {
-//        // Arrange
-//        var alumnos = List.of(
-//                Alumno.builder().nombre("Test-1").calificacion(10.0).build(),
-//                Alumno.builder().nombre("Test-2").calificacion(9.0).build()
-//        );
-//
-//        // Cuando se llame al método al repositorio simulamos...
-//        when(repository.findAll()).thenReturn(Flux.fromIterable(alumnos));
-//
-//        // Act
-//        var result = service.findAll().collectList().block();
-//
-//
-//        // Assert
-//        assertAll("findAll",
-//                () -> assertEquals(result.size(), 2, "No se han recuperado dos alumnos"),
-//                () -> assertEquals(result.get(0).getNombre(), "Test-1", "El primer alumno no es el esperado"),
-//                () -> assertEquals(result.get(1).getNombre(), "Test-2", "El segundo alumno no es el esperado"),
-//                () -> assertEquals(result.get(0).getCalificacion(), 10.0, "La calificación del primer alumno no es la esperada"),
-//                () -> assertEquals(result.get(1).getCalificacion(), 9.0, "La calificación del segundo alumno no es la esperada")
-//        );
-//
-//        // Comprobamos que se ha llamado al método del repositorio
+package services;
+
+import org.example.model.Funko;
+import org.example.repositories.funko.FunkoReposotory;
+import org.example.repositories.funko.FunkoReposotoryImp;
+import org.example.services.notificacion.FunkosNotificacion;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Flux;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+class FunkosServiceImplTest {
+
+    @Mock
+    FunkoReposotory repository;
+    @Mock
+    FunkosNotificacion notification;
+    @InjectMocks
+    FunkoReposotoryImp service;
+
+    @Test
+    void findAll() throws SQLException, ExecutionException, InterruptedException {
+        // Arrange
+        var funkos = List.of(
+                getFunko(),
+                getFunko()
+        );
+
+        // Cuando se llame al método al repositorio simulamos...
+        when(repository.findAll()).thenReturn(Flux.fromIterable(funkos));
+
+        // Act
+        var result = service.findAll().collectList().block();
+
+        // Assert
+        assertAll("findAll",
+                () -> assertEquals(result.size(), 2, "No se han recuperado dos alumnos"),
+                () -> assertEquals(result.get(0).getNombre(), "Test", "El primer alumno no es el esperado"),
+                () -> assertEquals(result.get(1).getNombre(), "Test", "El segundo alumno no es el esperado"),
+                () -> assertEquals(result.get(0).getPrecio(), 10.0, "La calificación del primer alumno no es la esperada"),
+                () -> assertEquals(result.get(1).getPrecio(), 10.0, "La calificación del segundo alumno no es la esperada")
+        );
+
+        // Comprobamos que se ha llamado al método del repositorio
 //        verify(repository, times(1)).findAll();
-//    }
-//
+    }
+
 //    @Test
 //    void findAllByNombre() throws SQLException, ExecutionException, InterruptedException {
 //        // Arrange
@@ -220,4 +223,19 @@
 //        // Comprobamos que se ha llamado al método del repositorio
 //        verify(repository, times(1)).deleteAll();
 //    }
-//}
+//
+    private static Funko getFunko() {
+        var funko = Funko.builder()
+                .id(1L)
+                .cod(UUID.randomUUID())
+                .nombre("Test")
+                .myId(1L)
+                .modelo("DISNEY")
+                .precio(10.0)
+                .fechaLanzamiento(LocalDate.now())
+                .created_at(LocalDateTime.now())
+                .updated_at(LocalDateTime.now())
+                .build();
+        return funko;
+    }
+}

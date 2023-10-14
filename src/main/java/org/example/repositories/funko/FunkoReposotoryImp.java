@@ -149,14 +149,8 @@ public class FunkoReposotoryImp implements FunkoReposotory {
                         .bind(0, nombre)
                         .execute()))
                         .flatMap(result -> Flux.from(result.map((row, rowMetadata) ->
-                                Funko.builder()
-                                        .id(row.get("id", Integer.class))
-                                        .nombre(row.get("nombre", String.class))
-                                        .cod(row.get("cod", UUID.class))
-                                        .myId(row.get("myId", Long.class))
-                                        .created_at(row.get("created_at", LocalDateTime.class))
-                                        .updated_at(row.get("updated_at", LocalDateTime.class))
-                                        .build()))),
+                                getBuild(row))
+                        )),
                 Connection::close
         );
     }
