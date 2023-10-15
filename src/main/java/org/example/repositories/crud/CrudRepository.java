@@ -5,6 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface CrudRepository<T,ID> {
+    // Metodos CRUD
     Flux<Funko> findAll();
     Mono<Funko> findById(ID id);
     Mono<Funko> save(T t);

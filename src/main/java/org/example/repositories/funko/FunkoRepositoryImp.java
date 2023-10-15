@@ -14,22 +14,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class FunkoReposotoryImp implements FunkoReposotory {
-    private static FunkoReposotoryImp instance;
-    private final Logger logger = LoggerFactory.getLogger(FunkoReposotoryImp.class);
+public class FunkoRepositoryImp implements FunkoRepository {
+    // Atributos
+    private static FunkoRepositoryImp instance;
+    private final Logger logger = LoggerFactory.getLogger(FunkoRepositoryImp.class);
     private final ConnectionPool connectionFactory;
 
-    private FunkoReposotoryImp(DatabaseManager databaseManager) {
+    // Constructor privado
+    private FunkoRepositoryImp(DatabaseManager databaseManager) {
         this.connectionFactory = databaseManager.getConnectionPoll();
     }
 
-    public static FunkoReposotoryImp getInstance(DatabaseManager databaseManager) {
+    // Singleton
+    public static FunkoRepositoryImp getInstance(DatabaseManager databaseManager) {
         if (instance == null) {
-            instance = new FunkoReposotoryImp(databaseManager);
+            instance = new FunkoRepositoryImp(databaseManager);
         }
         return instance;
     }
 
+    /**
+     * Busca todos los funkos
+     *
+     * @return funkos encontrados
+     */
     @Override
     public Flux<Funko> findAll() {
         logger.debug("Buscando todo los Funkos");
@@ -44,6 +52,12 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         );
     }
 
+    /**
+     * Construye un funko
+     *
+     * @param row fila
+     * @return funko construido
+     */
     private static Funko getBuild(Row row) {
         return Funko.builder()
                 .id(row.get("id", Integer.class))
@@ -58,6 +72,12 @@ public class FunkoReposotoryImp implements FunkoReposotory {
                 .build();
     }
 
+    /**
+     * Busca un funko por id
+     *
+     * @param id
+     * @return funko encontrado por id
+     */
     @Override
     public Mono<Funko> findById(Long id) {
         logger.debug("Buscando funko por id: " + id);
@@ -74,6 +94,12 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         );
     }
 
+    /**
+     * Guarda un funko
+     *
+     * @param funko se va a guardar
+     * @return funko guardado
+     */
     @Override
     public Mono<Funko> save(Funko funko) {
         String sql = "INSERT INTO FUNKOS (cod, myId, nombre, modelo, precio, fecha_lanzamiento, created_at, updated_at) VALUES(?,?,?,?,?,?,?,?)";
@@ -94,6 +120,12 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         );
     }
 
+    /**
+     * Actualiza un funko
+     *
+     * @param funko se va a actualizar
+     * @return funko actualizado
+     */
     @Override
     public Mono<Funko> update(Funko funko) {
         logger.debug("Actualizando funko: " + funko);
@@ -113,6 +145,12 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         );
     }
 
+    /**
+     * Elimina un funko por id
+     *
+     * @param id de funko a eliminar
+     * @return true si se ha eliminado
+     */
     @Override
     public Mono<Boolean> deleteById(Long id) {
         logger.debug("Eliminar por la id: " + id);
@@ -127,6 +165,11 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         );
     }
 
+    /**
+     * Elimina todos los funkos
+     *
+     * @return void
+     */
     @Override
     public Mono<Void> deleteAll() {
         logger.debug("Elimina todos los funkos");
@@ -139,6 +182,12 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         );
     }
 
+    /**
+     * Busca por nombre
+     *
+     * @param nombre de funko a buscar
+     * @return funkos encontrados por nombre
+     */
     @Override
     public Flux<Funko> findByNombre(String nombre) {
         logger.debug("Busca por nombre: " + nombre);
@@ -155,6 +204,12 @@ public class FunkoReposotoryImp implements FunkoReposotory {
         );
     }
 
+    /**
+     * Busca por UUID
+     *
+     * @param uuid de funko a buscar
+     * @return funkos encontrados por UUID
+     */
     @Override
     public Mono<Funko> findByUuid(UUID uuid) {
         String sql = "SELECT * FROM FUNKOS WHERE cod = ?";

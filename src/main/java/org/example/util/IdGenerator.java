@@ -6,24 +6,38 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class IdGenerator {
+    // Atributos
     private static IdGenerator instance;
     private final Lock lock = new ReentrantLock(true);
     private long myId = 0;
-    private IdGenerator(){
+
+    private IdGenerator() {
 
     }
-    public synchronized static IdGenerator getInstance(){
-        if(instance == null){
+
+    /**
+     * Singleton
+     *
+     * @return instancia
+     */
+    public synchronized static IdGenerator getInstance() {
+        if (instance == null) {
             instance = new IdGenerator();
         }
         return instance;
     }
-    public Mono<Long> getMyId(){
-        return Mono.fromCallable(()->{
+
+    /**
+     * Genera un id
+     *
+     * @return id
+     */
+    public Mono<Long> getMyId() {
+        return Mono.fromCallable(() -> {
             lock.lock();
             try {
                 return this.myId++;
-            }finally {
+            } finally {
                 lock.unlock();
             }
         });

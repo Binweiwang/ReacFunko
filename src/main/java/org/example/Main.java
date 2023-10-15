@@ -1,18 +1,13 @@
 package org.example;
 
 import org.example.database.DatabaseManager;
-import org.example.model.Funko;
-import org.example.repositories.funko.FunkoReposotoryImp;
+import org.example.repositories.funko.FunkoRepositoryImp;
 import org.example.services.funko.FunkoServiceImp;
 import org.example.services.notificacion.NotificacionFunkoImp;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 public class Main {
     public static void main(String[] args) {
-        var funkosService = FunkoServiceImp.getInstance(FunkoReposotoryImp.getInstance(DatabaseManager.getInstance()));
+        var funkosService = FunkoServiceImp.getInstance(FunkoRepositoryImp.getInstance(DatabaseManager.getInstance()));
         var funkosNotification = NotificacionFunkoImp.getInstance();
 
         System.out.println("Sistema de obtención de notificaciones en Tiempo Real");
@@ -33,11 +28,11 @@ public class Main {
                 error -> System.err.println("Se ha producido un error: " + error),
                 () -> System.out.println("Completado")
         );
-//        funkosService.importarCSV().subscribe(
-//                funkos -> System.out.println("Funkos importados: " + funkos),
-//                error -> System.out.println("Error al importar los funkos: " + error.getMessage()),
-//                () -> System.out.println("Importación completada")
-//        );
+        funkosService.importarCSV().subscribe(
+                funkos -> System.out.println("Funkos importados: " + funkos),
+                error -> System.out.println("Error al importar los funkos: " + error.getMessage()),
+                () -> System.out.println("Importación completada")
+        );
         System.out.println("Funko mas caro");
         funkosService.funkoMasCaro().subscribe(
                 funkoMasCaro -> System.out.println("Funko mas caro: " + funkoMasCaro),
@@ -47,7 +42,7 @@ public class Main {
 
         System.out.println("Media de los precios de los funkos");
         funkosService.mediaFunkos().subscribe(
-                mediaFunkos -> System.out.println("Media de los precios de los funkos: " + mediaFunkos),
+                mediaFunkos -> System.out.println("Media de los precios de los funkos: " + mediaFunkos.toString().substring(0, 5) + "€"),
                 error -> System.out.println("Error al obtener la media de los precios de los funkos: " + error.getMessage()),
                 () -> System.out.println("Obtención completada")
         );

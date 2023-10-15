@@ -16,6 +16,7 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class DatabaseManager {
+    // Atributos
     private static DatabaseManager instance;
     private final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
     private final ConnectionFactory connectionFactory;
@@ -25,28 +26,29 @@ public class DatabaseManager {
     private boolean databaseInitTables;
     private String databaseUrl;
 
-    public static synchronized DatabaseManager getInstance(){
-        if (instance == null){
+    // Singleton
+    public static synchronized DatabaseManager getInstance() {
+        if (instance == null) {
             instance = new DatabaseManager();
         }
         return instance;
     }
-    private DatabaseManager(){
+
+    // Constructor privado
+    private DatabaseManager() {
         loadProperties();
 
         connectionFactory = ConnectionFactories.get(databaseUrl);
 
-        ConnectionPoolConfiguration configuration = ConnectionPoolConfiguration.builder(connectionFactory)
-                .maxIdleTime(Duration.ofMillis(1000))
-                .maxSize(20)
-                .build();
+        ConnectionPoolConfiguration configuration = ConnectionPoolConfiguration.builder(connectionFactory).maxIdleTime(Duration.ofMillis(1000)).maxSize(20).build();
         pool = new ConnectionPool(configuration);
 
-        if(databaseInitTables){
+        if (databaseInitTables) {
             initTables();
         }
     }
 
+    // Métodos que ejecuta los scripts de la base de datos
     public synchronized void initTables() {
         logger.debug("Borrando tablas si existe");
         excuteScript("remove.sql").block();
@@ -54,52 +56,61 @@ public class DatabaseManager {
         excuteScript("init.sql").block();
     }
 
+    /**
+     * Ejecuta un script
+     *
+     * @param script script a ejecutar
+     * @return void
+     */
     private Mono<Void> excuteScript(String script) {
         logger.debug("Ejecutando script: " + script);
-        return Mono.usingWhen(
-                connectionFactory.create(),
-                connection -> {
-                    logger.debug("Creando conexión con la base de datos");
-                    String scriptContent = null;
-                    try{
-                        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(script)){
-                            if(inputStream == null){
-                                return Mono.error(new IOException("No se ha encontrado el fichero de scrript"));
-                            } else {
-                                try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))){
-                                    scriptContent = reader.lines().collect(Collectors.joining("\n"));
-                                }
-                            }
+        return Mono.usingWhen(connectionFactory.create(), connection -> {
+            logger.debug("Creando conexión con la base de datos");
+            String scriptContent = null;
+            try {
+                try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(script)) {
+                    if (inputStream == null) {
+                        return Mono.error(new IOException("No se ha encontrado el fichero de scrript"));
+                    } else {
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                            scriptContent = reader.lines().collect(Collectors.joining("\n"));
                         }
-                        logger.debug(scriptContent);
-                        Statement statement = connection.createStatement(scriptContent);
-                        return Mono.from(statement.execute());
-                    } catch (IOException e) {
-                    return Mono.error(e);
                     }
-                },
-                Connection::close
-        ).then();
+                }
+                logger.debug(scriptContent);
+                Statement statement = connection.createStatement(scriptContent);
+                return Mono.from(statement.execute());
+            } catch (IOException e) {
+                return Mono.error(e);
+            }
+        }, Connection::close).then();
     }
 
+    // Métodos para cargar las propiedades de la base de datos
     private void loadProperties() {
         logger.debug("Cargando fichero de configuración de la base de datos");
-        try{
+        try {
             var configFile = ClassLoader.getSystemResource("database.properties").getFile();
             var props = new Properties();
             props.load(new FileReader(configFile));
 
-            databaseUser = props.getProperty("database.user","sa");
-            databasePass = props.getProperty("database.password","");
-            databaseUrl = props.getProperty("database.url","jdbc:h2:./funkos");
-            databaseInitTables = Boolean.parseBoolean(props.getProperty("database.initTables","false"));
+            databaseUser = props.getProperty("database.user", "sa");
+            databasePass = props.getProperty("database.password", "");
+            databaseUrl = props.getProperty("database.url", "jdbc:h2:./funkos");
+            databaseInitTables = Boolean.parseBoolean(props.getProperty("database.initTables", "false"));
             logger.debug("Configurado las properties correctamente");
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    public ConnectionPool getConnectionPoll(){
+
+    /**
+     * Devuelve la conexión a la base de datos
+     *
+     * @return Connection de la base de datos
+     */
+    public ConnectionPool getConnectionPoll() {
         return this.pool;
     }
 }

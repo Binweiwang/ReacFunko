@@ -13,6 +13,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     /**
      * Escribe un valor JSON (una matriz, objeto, cadena, número, booleano o nulo)
+     *
      * @param out
      * @param value Puede ser nulo.
      * @throws IOException
@@ -28,6 +29,7 @@ public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     /**
      * Lee el siguiente valor JSON del JsonReader proporcionado y lo convierte en un objeto Java.
+     *
      * @param in JsonReader para leer. Nunca es nulo.
      * @return Puede ser nulo.
      * @throws IOException

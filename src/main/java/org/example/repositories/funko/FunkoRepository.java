@@ -7,7 +7,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-public interface FunkoReposotory extends CrudRepository<Funko,Long> {
+public interface FunkoRepository extends CrudRepository<Funko,Long> {
+    // Metodos propios
     Flux<Funko> findByNombre(String nombre);
     Mono<Funko> findByUuid(UUID uuid);
 }
