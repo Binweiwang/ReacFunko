@@ -14,18 +14,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class FunkoReposotoryImp implements FunkoReposotory {
-    private static FunkoReposotoryImp instance;
-    private final Logger logger = LoggerFactory.getLogger(FunkoReposotoryImp.class);
+public class FunkoRepositoryImp implements FunkoRepository {
+    private static FunkoRepositoryImp instance;
+    private final Logger logger = LoggerFactory.getLogger(FunkoRepositoryImp.class);
     private final ConnectionPool connectionFactory;
 
-    private FunkoReposotoryImp(DatabaseManager databaseManager) {
+    private FunkoRepositoryImp(DatabaseManager databaseManager) {
         this.connectionFactory = databaseManager.getConnectionPoll();
     }
 
-    public static FunkoReposotoryImp getInstance(DatabaseManager databaseManager) {
+    public static FunkoRepositoryImp getInstance(DatabaseManager databaseManager) {
         if (instance == null) {
-            instance = new FunkoReposotoryImp(databaseManager);
+            instance = new FunkoRepositoryImp(databaseManager);
         }
         return instance;
     }

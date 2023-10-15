@@ -36,7 +36,8 @@ public class DatabaseManager {
 
         connectionFactory = ConnectionFactories.get(databaseUrl);
 
-        ConnectionPoolConfiguration configuration = ConnectionPoolConfiguration.builder(connectionFactory)
+        ConnectionPoolConfiguration configuration = ConnectionPoolConfiguration
+                .builder(connectionFactory)
                 .maxIdleTime(Duration.ofMillis(1000))
                 .maxSize(20)
                 .build();

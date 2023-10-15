@@ -1,18 +1,13 @@
 package org.example;
 
 import org.example.database.DatabaseManager;
-import org.example.model.Funko;
-import org.example.repositories.funko.FunkoReposotoryImp;
+import org.example.repositories.funko.FunkoRepositoryImp;
 import org.example.services.funko.FunkoServiceImp;
 import org.example.services.notificacion.NotificacionFunkoImp;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 public class Main {
     public static void main(String[] args) {
-        var funkosService = FunkoServiceImp.getInstance(FunkoReposotoryImp.getInstance(DatabaseManager.getInstance()));
+        var funkosService = FunkoServiceImp.getInstance(FunkoRepositoryImp.getInstance(DatabaseManager.getInstance()));
         var funkosNotification = NotificacionFunkoImp.getInstance();
 
         System.out.println("Sistema de obtención de notificaciones en Tiempo Real");

@@ -2,8 +2,8 @@ package repositorio;
 
 import org.example.database.DatabaseManager;
 import org.example.model.Funko;
-import org.example.repositories.funko.FunkoReposotory;
-import org.example.repositories.funko.FunkoReposotoryImp;
+import org.example.repositories.funko.FunkoRepository;
+import org.example.repositories.funko.FunkoRepositoryImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +18,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FunkosRepositoryImplTest {
 
-    private FunkoReposotory funkoReposotory;
+    private FunkoRepository funkoReposotory;
 
     @BeforeEach
     void setUp() throws SQLException {
-        funkoReposotory = FunkoReposotoryImp.getInstance(DatabaseManager.getInstance());
+        funkoReposotory = FunkoRepositoryImp.getInstance(DatabaseManager.getInstance());
         DatabaseManager.getInstance().initTables();
 
     }
