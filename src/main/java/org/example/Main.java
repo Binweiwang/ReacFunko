@@ -28,11 +28,11 @@ public class Main {
                 error -> System.err.println("Se ha producido un error: " + error),
                 () -> System.out.println("Completado")
         );
-//        funkosService.importarCSV().subscribe(
-//                funkos -> System.out.println("Funkos importados: " + funkos),
-//                error -> System.out.println("Error al importar los funkos: " + error.getMessage()),
-//                () -> System.out.println("Importación completada")
-//        );
+        funkosService.importarCSV().subscribe(
+                funkos -> System.out.println("Funkos importados: " + funkos),
+                error -> System.out.println("Error al importar los funkos: " + error.getMessage()),
+                () -> System.out.println("Importación completada")
+        );
         System.out.println("Funko mas caro");
         funkosService.funkoMasCaro().subscribe(
                 funkoMasCaro -> System.out.println("Funko mas caro: " + funkoMasCaro),
@@ -42,7 +42,7 @@ public class Main {
 
         System.out.println("Media de los precios de los funkos");
         funkosService.mediaFunkos().subscribe(
-                mediaFunkos -> System.out.println("Media de los precios de los funkos: " + mediaFunkos),
+                mediaFunkos -> System.out.println("Media de los precios de los funkos: " + mediaFunkos.toString().substring(0, 5) + "€"),
                 error -> System.out.println("Error al obtener la media de los precios de los funkos: " + error.getMessage()),
                 () -> System.out.println("Obtención completada")
         );

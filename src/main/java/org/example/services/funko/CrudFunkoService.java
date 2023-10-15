@@ -5,6 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface CrudFunkoService {
+    // Metodos CRUD
     Flux<Funko> findAll();
 
     Flux<Funko> findAllByNombre(String nombre);

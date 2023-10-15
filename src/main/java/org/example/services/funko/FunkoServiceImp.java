@@ -46,6 +46,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Singleton
+     *
      * @param funkoReposotory repositorio
      * @return instancia
      */
@@ -59,6 +60,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve todos los funkos
+     *
      * @return funkos
      */
     @Override
@@ -69,6 +71,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve todos los funkos por nombre
+     *
      * @param nombre nombre
      * @return funkos
      */
@@ -80,6 +83,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve un funko por id
+     *
      * @param id id
      * @return funko
      */
@@ -95,6 +99,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Guarda un funko
+     *
      * @param funko funko
      * @return funko guardado
      */
@@ -114,6 +119,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Actualiza un funko
+     *
      * @param funko funko
      * @return funko actualizado
      */
@@ -137,6 +143,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Borra un funko por id
+     *
      * @param id id
      * @return funko borrado
      */
@@ -160,6 +167,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Borra todos los funkos
+     *
      * @return void
      */
     @Override
@@ -170,6 +178,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Importa funkos desde un archivo CSV
+     *
      * @return funkos importados
      */
     @Override
@@ -205,6 +214,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Exporta funkos a un archivo CSV
+     *
      * @return void
      */
     @Override
@@ -222,6 +232,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve un funko por uuid
+     *
      * @param uuid uuid
      * @return funko buscado por uuid
      */
@@ -236,6 +247,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve el funko mas caro
+     *
      * @return funko mas caro
      */
     @Override
@@ -249,6 +261,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve la media de los funkos
+     *
      * @return media de los funkos
      */
     @Override
@@ -263,21 +276,23 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve los funkos agrupados por modelo
+     *
      * @return funkos agrupados por modelo
      */
-        @Override
-        public Mono<Map<String, List<Funko>>> funkoPorModelo() {
-            logger.debug("Mostrando funkos por modelo");
-            return funkoRepository.findAll().collectList().flatMap(funkos -> {
-                Map<String, List<Funko>> funkosPorModelo = funkos.stream()
-                        .collect(Collectors.groupingBy(Funko::getModelo));
-                return Mono.just(funkosPorModelo);
-            });
-        }
+    @Override
+    public Mono<Map<String, List<Funko>>> funkoPorModelo() {
+        logger.debug("Mostrando funkos por modelo");
+        return funkoRepository.findAll().collectList().flatMap(funkos -> {
+            Map<String, List<Funko>> funkosPorModelo = funkos.stream()
+                    .collect(Collectors.groupingBy(Funko::getModelo));
+            return Mono.just(funkosPorModelo);
+        });
+    }
 
 
     /**
      * Devuelve el numero de funkos por modelo
+     *
      * @return numero de funkos por modelo
      */
     @Override
@@ -294,6 +309,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve los funkos lanzados en 2023
+     *
      * @return funkos lanzados en 2023
      */
     @Override
@@ -309,6 +325,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve el numero de funkos de stitch
+     *
      * @return numero de funkos de stitch
      */
     @Override
@@ -324,6 +341,7 @@ public class FunkoServiceImp implements FunkoService {
 
     /**
      * Devuelve los funkos de stitch
+     *
      * @return funkos de stitch
      */
     @Override

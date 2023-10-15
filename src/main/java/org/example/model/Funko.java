@@ -6,9 +6,11 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
 @Data
 @Builder
 public class Funko {
+    // Atributos
     private long id;
     private UUID cod;
     private long myId;

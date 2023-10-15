@@ -10,16 +10,18 @@ public class IdGenerator {
     private static IdGenerator instance;
     private final Lock lock = new ReentrantLock(true);
     private long myId = 0;
-    private IdGenerator(){
+
+    private IdGenerator() {
 
     }
 
     /**
      * Singleton
+     *
      * @return instancia
      */
-    public synchronized static IdGenerator getInstance(){
-        if(instance == null){
+    public synchronized static IdGenerator getInstance() {
+        if (instance == null) {
             instance = new IdGenerator();
         }
         return instance;
@@ -27,14 +29,15 @@ public class IdGenerator {
 
     /**
      * Genera un id
+     *
      * @return id
      */
-    public Mono<Long> getMyId(){
-        return Mono.fromCallable(()->{
+    public Mono<Long> getMyId() {
+        return Mono.fromCallable(() -> {
             lock.lock();
             try {
                 return this.myId++;
-            }finally {
+            } finally {
                 lock.unlock();
             }
         });
