@@ -2,15 +2,13 @@ package org.example.database;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.r2dbc.pool.ConnectionPoolConfiguration;
-import io.r2dbc.spi.Connection;
-import io.r2dbc.spi.ConnectionFactories;
-import io.r2dbc.spi.ConnectionFactory;
-import io.r2dbc.spi.Statement;
+import io.r2dbc.spi.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -90,9 +88,9 @@ public class DatabaseManager {
     private void loadProperties() {
         logger.debug("Cargando fichero de configuración de la base de datos");
         try {
-            var configFile = ClassLoader.getSystemResource("database.properties").getFile();
+            var pathFile = Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator  + File.separator + "main" + File.separator + "resources" + File.separator + "database.properties";
             var props = new Properties();
-            props.load(new FileReader(configFile));
+            props.load(new FileReader(pathFile));
 
             databaseUser = props.getProperty("database.user", "sa");
             databasePass = props.getProperty("database.password", "");

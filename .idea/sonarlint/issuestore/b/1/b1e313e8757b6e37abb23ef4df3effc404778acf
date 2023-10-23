@@ -1,18 +1,18 @@
 
-g	java:S112c"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ÉÃ¨İ±1
+g	java:S112h"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ÉÃ¨İ±1
 T
-java:S2629:"7Use the built-in formatting to construct this argument.(§‰¨8ÊÃ¨İ±1
+java:S2629B"7Use the built-in formatting to construct this argument.(§‰¨8ÊÃ¨İ±1
 d
-java:S2095Z"HUse try-with-resources or close this "FileReader" in a "finally" clause.(ŒÅìM8ëÃ¨İ±1
+java:S2095_"HUse try-with-resources or close this "FileReader" in a "finally" clause.(ŒÅìM8ëÃ¨İ±1
 x
-java:S1450"[Remove the "databasePass" field and declare it as a local variable in the relevant methods.(ÈŸÊ†8îÃ¨İ±1
+java:S1450"[Remove the "databasePass" field and declare it as a local variable in the relevant methods.(ÈŸÊ†8îÃ¨İ±1
 x
-java:S1450"[Remove the "databaseUser" field and declare it as a local variable in the relevant methods.(ñ™ô8îÃ¨İ±1
+java:S1450"[Remove the "databaseUser" field and declare it as a local variable in the relevant methods.(ñ™ô8îÃ¨İ±1
 »
 java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.( ùÓ‹ÿÿÿÿÿ8ïÃ¨İ±1
 ^
-java:S3457:"AFormat specifiers should be used instead of string concatenation.(§‰¨8üÃ¨İ±1
+java:S3457B"AFormat specifiers should be used instead of string concatenation.(§‰¨8üÃ¨İ±1
 M
-java:S1068"0Remove this unused "databaseUser" private field.(ñ™ô8Ä¨İ±1
+java:S1068"0Remove this unused "databaseUser" private field.(ñ™ô8Ä¨İ±1
 M
-java:S1068"0Remove this unused "databasePass" private field.(ÈŸÊ†8Ä¨İ±1
+java:S1068"0Remove this unused "databasePass" private field.(ÈŸÊ†8Ä¨İ±1

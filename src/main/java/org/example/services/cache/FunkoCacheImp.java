@@ -69,11 +69,7 @@ public class FunkoCacheImp implements FunkoCache {
         return Mono.fromRunnable(() -> cache.remove(key));
     }
 
-    /**
-     * Limpia la cache
-     *
-     * @return void
-     */
+    // Elimina los funkos de la cache que lleven más de 90 segundos sin ser actualizados
     @Override
     public void clear() {
         cache.entrySet().removeIf(entry -> {

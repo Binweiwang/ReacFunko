@@ -11,10 +11,6 @@ C
 build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
 g
 7src/main/java/org/example/database/DatabaseManager.java,b\1\b1e313e8757b6e37abb23ef4df3effc404778acf
-q
-Asrc/main/java/org/example/repositories/funko/FunkoReposotory.java,3\8\381417b37fff1d1a453831971cf6a71a5858c503
-t
-Dsrc/main/java/org/example/repositories/funko/FunkoReposotoryImp.java,3\1\31699d074a4b012a6c346a0165f3942a2635a492
 S
 #src/main/java/org/example/Main.java,0\b\0ba1b9c7a4878802f938e331cc2d8a042087ec6b
 Y
@@ -39,8 +35,6 @@ q
 Asrc/main/java/org/example/services/util/LocalDateTimeAdapter.java,3\f\3facbe279eeca545e82598251c344afe103c0941
 @
 data/funkos.json,2\e\2e0615fdd37613856739d86e7d8af772337aeb19
-c
-3src/main/java/org/example/services/cache/Cache.java,b\c\bc2c6f128ec71dda46a8e7462288142fe226d257
 h
 8src/main/java/org/example/services/cache/FunkoCache.java,6\2\6295a77180d4d2e4a085c364d958ab173e8f3a3c
 k
@@ -53,3 +47,11 @@ a
 1src/test/java/services/FunkosServiceImplTest.java,6\9\690c62ebf53ec6348909e000a8386ae2d2596dd7
 g
 7src/test/java/repositorio/FunkosRepositoryImplTest.java,8\4\84c66073fb1f0bc89198332e4f349e5cea82dfc6
+q
+Asrc/main/java/org/example/repositories/funko/FunkoRepository.java,e\b\eb8bec15763c53753c34749977e3d0f203e0e763
+t
+Dsrc/main/java/org/example/repositories/funko/FunkoRepositoryImp.java,a\a\aac58a0d557eacd57bbde0bac5c922403cb1d3eb
+g
+7src/main/java/org/example/services/cache/CrudCache.java,9\8\98a62f7ff031af6becbf1a9a4a6f4578ada15cd5
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d

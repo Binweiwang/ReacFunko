@@ -35,3 +35,14 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+// jar
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "org.example.Main"
+    }
+    configurations["compileClasspath"].forEach { file: File ->
+        from(zipTree(file.absoluteFile))
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

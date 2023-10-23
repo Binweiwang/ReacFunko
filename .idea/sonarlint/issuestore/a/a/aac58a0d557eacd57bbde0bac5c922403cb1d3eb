@@ -1,0 +1,19 @@
+
+T
+java:S2629S"7Use the built-in formatting to construct this argument.(øë”8ÈÛºï²1
+T
+java:S2629ƒ"7Use the built-in formatting to construct this argument.(üÈ±I8ÈÛºï²1
+Z
+java:S2629œ"7Use the built-in formatting to construct this argument.(”´ìæøÿÿÿÿ8ÈÛºï²1
+U
+java:S2629Á"7Use the built-in formatting to construct this argument.(ĞÀÃš8ÈÛºï²1
+^
+java:S3457S"AFormat specifiers should be used instead of string concatenation.(øë”8çÛºï²1
+^
+java:S3457ƒ"AFormat specifiers should be used instead of string concatenation.(üÈ±I8÷Ûºï²1
+d
+java:S3457œ"AFormat specifiers should be used instead of string concatenation.(”´ìæøÿÿÿÿ8÷Ûºï²1
+a
+java:S1612¢"CReplace this lambda with method reference 'Result::getRowsUpdated'.(û†ß–8÷Ûºï²1
+_
+java:S3457Á"AFormat specifiers should be used instead of string concatenation.(ĞÀÃš8÷Ûºï²1

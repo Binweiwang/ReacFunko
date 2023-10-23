@@ -1,34 +1,39 @@
 
 q
-java:S1192F"ODefine a constant instead of duplicating this literal " no encontrado" 4 times.(Ğıúßûÿÿÿÿ8ñ„êÛ²1
+java:S1192a"ODefine a constant instead of duplicating this literal " no encontrado" 4 times.(Ğıúßûÿÿÿÿ8ªÒµ©³1
+p
+java:S1192a"NDefine a constant instead of duplicating this literal "Funko con id " 3 times.(Ğıúßûÿÿÿÿ8ªÒµ©³1
 T
-java:S2629;"7Use the built-in formatting to construct this argument.(éÃèŠ8ò„êÛ²1
+java:S2629P"7Use the built-in formatting to construct this argument.(éÃèŠ8¬Òµ©³1
 Y
-java:S2629A"7Use the built-in formatting to construct this argument.(ŠÍÆâşÿÿÿÿ8ò„êÛ²1
+java:S2629\"7Use the built-in formatting to construct this argument.(ŠÍÆâşÿÿÿÿ8¬Òµ©³1
 T
-java:S2629K"7Use the built-in formatting to construct this argument.(÷èºÀ8ò„êÛ²1
-S
-java:S2629T"7Use the built-in formatting to construct this argument.(üÈ±I8ò„êÛ²1
+java:S2629l"7Use the built-in formatting to construct this argument.(÷èºÀ8¬Òµ©³1
 T
-java:S2629^"7Use the built-in formatting to construct this argument.(ğ¾¾Ÿ8ò„êÛ²1
+java:S2629€"7Use the built-in formatting to construct this argument.(üÈ±I8¬Òµ©³1
 U
-java:S2629›"7Use the built-in formatting to construct this argument.(İÁñ8ò„êÛ²1
-t	java:S116#"SRename this field "MAX_SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒØÒ‹şÿÿÿÿ8‡…êÛ²1
+java:S2629˜"7Use the built-in formatting to construct this argument.(ğ¾¾Ÿ8¬Òµ©³1
+U
+java:S2629ñ"7Use the built-in formatting to construct this argument.(İÁñ8¬Òµ©³1
+t	java:S116%"SRename this field "MAX_SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒØÒ‹şÿÿÿÿ8ÅÒµ©³1
 C
-java:S1170#"!Make this final field static too.(ÒØÒ‹şÿÿÿÿ8ˆ…êÛ²1
-T
-java:S3416"2Update this logger to use "FunkoServiceImp.class".(¨×¡ÿÿÿÿÿ8ˆ…êÛ²1
+java:S1170%"!Make this final field static too.(ÒØÒ‹şÿÿÿÿ8ÅÒµ©³1
+O
+java:S3416!"2Update this logger to use "FunkoServiceImp.class".(ã·Ïœ8ÆÒµ©³1
 ^
-java:S3457;"AFormat specifiers should be used instead of string concatenation.(éÃèŠ8‹…êÛ²1
+java:S3457P"AFormat specifiers should be used instead of string concatenation.(éÃèŠ8ÊÒµ©³1
 c
-java:S3457A"AFormat specifiers should be used instead of string concatenation.(ŠÍÆâşÿÿÿÿ8‹…êÛ²1
+java:S3457\"AFormat specifiers should be used instead of string concatenation.(ŠÍÆâşÿÿÿÿ8ÊÒµ©³1
 ^
-java:S3457K"AFormat specifiers should be used instead of string concatenation.(÷èºÀ8Œ…êÛ²1
-]
-java:S3457T"AFormat specifiers should be used instead of string concatenation.(üÈ±I8…êÛ²1
+java:S3457l"AFormat specifiers should be used instead of string concatenation.(÷èºÀ8ËÒµ©³1
+]	java:S125o"<This block of commented-out lines of code should be removed.(³éĞñıÿÿÿÿ8ËÒµ©³1
 ^
-java:S3457^"AFormat specifiers should be used instead of string concatenation.(ğ¾¾Ÿ8…êÛ²1
-n
-java:S2677s"LUse or store the value returned from "readLine" instead of throwing it away.(£­—âÿÿÿÿÿ8…êÛ²1
+java:S3457€"AFormat specifiers should be used instead of string concatenation.(üÈ±I8ÍÒµ©³1
+X	java:S125†"<This block of commented-out lines of code should be removed.(Ò­Ä:8ÍÒµ©³1
 _
-java:S3457›"AFormat specifiers should be used instead of string concatenation.(İÁñ8•…êÛ²1
+java:S3457˜"AFormat specifiers should be used instead of string concatenation.(ğ¾¾Ÿ8ÎÒµ©³1
+^	java:S125"<This block of commented-out lines of code should be removed.(Ûø‹ßıÿÿÿÿ8ÏÒµ©³1
+o
+java:S2677¾"LUse or store the value returned from "readLine" instead of throwing it away.(£­—âÿÿÿÿÿ8ÒÒµ©³1
+_
+java:S3457ñ"AFormat specifiers should be used instead of string concatenation.(İÁñ8ÖÒµ©³1
